@@ -1,12 +1,14 @@
-function longestCommonSubsequence(text1, text2) {
-  const m = text1.length;
-  const n = text2.length;
-  const dp = Array.from(Array(m + 1), () => Array(n + 1).fill(0));
-  for (let i = 1; i <= m; i++) {
-    for (let j = 1; j <= n; j++) {
-      if (text1[i - 1] === text2[j - 1]) dp[i][j] = dp[i - 1][j - 1] + 1;
-      else dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+function lengthOfLIS(nums) {
+  if (nums.length === 0) return 0;
+  const dp = new Array(nums.length).fill(1);
+  let max = 1;
+  for (let i = 1; i < nums.length; i++) {
+    for (let j = 0; j < i; j++) {
+      if (nums[i] > nums[j]) {
+        dp[i] = Math.max(dp[i], dp[j] + 1);
+        max = Math.max(max, dp[i]);
+      }
     }
   }
-  return dp[m][n];
+  return max;
 }
